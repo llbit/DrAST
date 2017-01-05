@@ -19,12 +19,24 @@ public class Log {
     log(Message.error(format, args));
   }
 
+  public static void error(String message) {
+    log(Message.error(message));
+  }
+
   public static void warning(String format, Object... args) {
     log(Message.warning(format, args));
   }
 
+  public static void warning(String message) {
+    log(Message.warning(message));
+  }
+
   public static void info(String format, Object... args) {
     log(Message.info(format, args));
+  }
+
+  public static void info(String message) {
+    log(Message.info(message));
   }
 
   public static void addReceiver(Consumer<Message> receiver) {

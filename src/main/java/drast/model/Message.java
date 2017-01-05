@@ -32,11 +32,23 @@ public class Message {
     return new Message(Severity.ERROR, String.format(format, args));
   }
 
+  public static Message error(String message) {
+    return new Message(Severity.ERROR, message);
+  }
+
   public static Message warning(String format, Object... args) {
     return new Message(Severity.WARNING, String.format(format, args));
   }
 
+  public static Message warning(String message) {
+    return new Message(Severity.WARNING, message);
+  }
+
   public static Message info(String format, Object... args) {
     return new Message(Severity.INFO, String.format(format, args));
+  }
+
+  public static Message info(String message) {
+    return new Message(Severity.INFO, message);
   }
 }
