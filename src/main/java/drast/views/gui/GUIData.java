@@ -40,6 +40,7 @@ public class GUIData {
   private DrAST jaaAPI;
   private DrASTGUI jaaUI;
   private Stage stage;
+  private boolean optimization = false;
 
   public GUIData() {
     reset(new DrAST(null, new TreeFilter()));
@@ -56,6 +57,19 @@ public class GUIData {
     selectedNode = null;
     lastRealNode = null;
     selectedInfo = null;
+
+    updateOptimizationSetting();
+  }
+
+  private void updateOptimizationSetting() {
+    int nodeThreshold = DrASTSettings.getInt(DrASTSettings.NODE_THRESHOLD, 1000);
+
+    optimization = getTreeTraverser() != null && getTreeTraverser().getClusteredASTSize() > nodeThreshold;
+    if (optimization) {
+      Log.warning("Number of nodes exceed optimization threshold of %s nodes. "
+          + "The graph will not be as nice, but performance will be better.",
+          nodeThreshold);
+    }
   }
 
 
@@ -64,14 +78,6 @@ public class GUIData {
    * No optimization will be enabled if something goes wrong with reading the configuration value.
    */
   public boolean showUglyEdges() {
-    int nodeThreshold = DrASTSettings.getInt(DrASTSettings.NODE_THRESHOLD, 1000);
-
-    boolean optimization = getTreeTraverser() != null && getTreeTraverser().getClusteredASTSize() > nodeThreshold;
-    if (optimization) {
-      Log.warning("Number of nodes exceed optimization threshold of %s nodes. "
-          + "The graph will not be as nice, but performance will be better.",
-          nodeThreshold);
-    }
     return optimization;
   }
 
